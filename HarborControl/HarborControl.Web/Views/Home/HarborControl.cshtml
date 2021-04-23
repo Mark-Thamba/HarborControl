@@ -1,0 +1,150 @@
+﻿@model HarborControl.Web.HarborControlViewModel
+@{ 
+   // ViewBag["Title"] = "Harbor Control";
+}
+
+<h3>Habor Control</h3>
+
+<div class="col-md-12">
+
+    <h2>Arriving Boats</h2>
+
+    @Html.ActionLink("Add New Boat", "AddNewBoat", "Home");
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Boat Type
+                </th>
+                <th>
+                    Boat Speed
+                </th>
+
+                <th>
+                    Unit
+                </th>
+                <th>
+                    Habor
+                </th>
+                <th>
+                    Arrival
+                </th>
+                <th>
+                    Status
+                </th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.HarborQues)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(x => item.BoatTypes.BoatType)</td>
+                    <td> @Html.DisplayFor(x => item.BoatTypes.Speed)  </td>
+                    <td>@Html.DisplayFor(x => item.BoatTypes.MesuringUnits.Name) </td>
+                    <td>@Html.DisplayFor(x => item.Harbors.Name) </td>
+                    <td>@Html.DisplayFor(x => item.ArrivalTime) </td>
+                    <td>@Html.DisplayFor(x => item.BoatStatuses.Name) </td>
+                  
+                </tr>
+            }
+        </tbody>
+
+            
+
+    </table>
+
+    <hr />
+    
+</div>
+<div class="col-md-12">
+    <h2>Docked Boats</h2>
+
+
+
+    
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Boat Type
+                </th>
+                <th>
+                    Boat Speed
+                </th>
+
+                <th>
+                    Unit
+                </th>
+                
+                <th>
+                  Docked Time
+                </th>
+                <th>
+                    Status
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DockingBoats)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(x => item.BoatTypes.BoatType)</td>
+                    <td> @Html.DisplayFor(x => item.BoatTypes.Speed)  </td>
+                    <td>@Html.DisplayFor(x => item.BoatTypes.MesuringUnits.Name) </td>
+                    
+                    <td>@Html.DisplayFor(x => item.ArrivalTime) </td>
+                    <td>@Html.DisplayFor(x => item.BoatStatuses.Name) </td>
+                    
+                </tr>
+            }
+        </tbody>
+
+
+
+
+    </table>
+
+
+
+
+</div>
+<script type="text/javascript" src="~/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+
+    
+    CheckHarborQue();
+
+    function CheckHarborQue() {
+        var endPoint = "@Url.Action("CheckHarborQue",@ViewContext.RouteData.Values["controller"].ToString())";
+
+        PostData("", endPoint).then(function (results) {
+            if (results != null) {
+                if (results.success) {
+                    location.reload(true);
+                }
+            }
+          
+           setTimeout(CheckHarborQue, 5000);
+        });
+    
+    
+    
+    }
+
+
+    function PostData(objectData, endPoint) {
+
+        return $.ajax({
+            url: endPoint,
+            method: "POST",
+            data: JSON.stringify(objectData),
+            contentType:"application/json"
+        });
+
+    }
+</script>

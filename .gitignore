@@ -1,0 +1,8 @@
+
+HarborControl/HarborControl.BusinessLogic/bin/*
+HarborControl/HarborControl.BusinessLogic/obj/*
+HarborControl/HarborControl.Data/obj/*
+HarborControl/HarborControl.Data/bin/*
+HarborControl/HarborControl.Domains/obj/*
+HarborControl/HarborControl.Web/bin/*
+HarborControl/HarborControl.Web/obj/*
